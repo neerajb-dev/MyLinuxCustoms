@@ -1,0 +1,11 @@
+#neeraj-office account
+Host github.com 
+     HostName github.com
+     User git
+     IdentityFile ~/.ssh/vsh
+
+#neeraj-personal account
+Host github.com-neerajb-dev
+     HostName github.com
+     User git
+     IdentityFile ~/.ssh/neerajb
