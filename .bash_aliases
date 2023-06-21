@@ -1,4 +1,4 @@
-# ls-deluxe aliases
+# ls-deluxe
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
@@ -6,15 +6,11 @@ alias lla='ls -la'
 alias lt='ls --tree'
 
 # docker
-dockList() {
-	# pass options 
-	sudo docker ps $1  
-}
+alias dockList='sudo docker ps -a'
 
 dockRun() {
   	read -p "Please enter the Docker image to use: " image
 	
-	# Postgres is usual for me others can be handled here as well
 	if [ "$image" = "postgres" ]; then
   		read -p "Please enter the container name: " name
   		read -p "Please enter the $image username: " user
@@ -70,13 +66,38 @@ dockRm() {
 	sudo docker rm -f "$1"
 }
 
-# switch themes - Some Harry Potter Spells :)
+# project aliases
+# run development server
+alias runDev='yarn run dev'
+
+# export extension
+alias extexp='yarn run export'
+
+# switch themes
 # Dark Theme
 nox() {
-	bash -c '~/Desktop/.dark.sh'
+	bash -c '/home/nrjbwj/Desktop/.dark.sh'
 }
 
 # Light Theme
 lumos() {
-	bash -c '~/Desktop/.light.sh'
+	bash -c '/home/nrjbwj/Desktop/.light.sh'
+}
+
+# run checks then commit changes 
+precommit() {
+	npm run check-format 
+       	 if [ $? -ne 0 ]; then 
+       	   	echo "formating....."  
+       	   	npm run format && npm run check-lint
+       	 else 
+        	npm run check-lint	
+       	 fi
+
+	if [ $? -eq 0 ]; then 
+	  	read -p "No errors found - Committing changes. Enter Commit Message: " msg
+		git add . && git commit	-m "$msg"
+	else 
+		echo "ES Lint check failed, please solve above errors and try again"
+	fi
 }
